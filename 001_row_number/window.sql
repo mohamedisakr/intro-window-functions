@@ -1,13 +1,20 @@
 -- For each year, what were the best rated movies?
-
-WITH rankings AS (
- SELECT title,
- year,
- rating,
- row_number() OVER (PARTITION BY year ORDER BY rating DESC) AS ranking
- FROM movies
+WITH ranking_movies AS
+(
+	SELECT title, year, rating, ROW_NUMBER() OVER (PARTITION BY year ORDER BY rating DESC) AS ranking
+	FROM movies
 )
-SELECT *
-FROM rankings
-WHERE ranking <= 5
-ORDER BY year, ranking ASC;
+
+SELECT title, year, rating, ranking
+FROM ranking_movies
+WHERE ranking = 1
+ORDER BY year, ranking ASC
+
+
+
+
+
+
+
+
+
