@@ -3,9 +3,17 @@
 -- With dense_rank, row numbers begin counting at the next number (1, 2, 2, 3)
 -- See division 1, rank 20
 
-SELECT division, DENSE_RANK() OVER (PARTITION BY division ORDER BY pace ASC) AS ranking,  pace, name
+-- SELECT division, ROW_NUMBER() OVER (PARTITION BY division ORDER BY pace ASC) AS ranking,  pace, name
+-- FROM runners
+-- LIMIT 100
+
+SELECT division, RANK() OVER (PARTITION BY division ORDER BY pace ASC) AS ranking,  pace, name
 FROM runners
 LIMIT 100
+
+-- SELECT division, DENSE_RANK() OVER (PARTITION BY division ORDER BY pace ASC) AS ranking,  pace, name
+-- FROM runners
+-- LIMIT 100
 
 
 
